@@ -22,7 +22,7 @@ app.post('/index', urlencodedParser, function(req, res) {
         voucher: req.body.voucher,
         value: req.body.value
     }];
-    fs.writeFile ("api/api.json", JSON.stringify(data), function(err) {
+    fs.writeFile ("public/api.json", JSON.stringify(data), function(err) {
         if (err) throw err;
         console.log('api.json created');
         }

@@ -35,7 +35,7 @@
 
   // update status
   const updateStatus = () => {
-      fetch('api/api.json').then(response => {
+      fetch('public/api.json').then(response => {
       return response.json();
       }).then(data => {
         voucher.value = data.table[0].voucher;
@@ -49,9 +49,9 @@
 
   // fetch post
   document.getElementById('postData').addEventListener('submit', postData);
-  postData = (event) => {
+  function postData(event) {
     event.preventDefault();
-    fetch('/admin', {
+    fetch('/index', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
