@@ -12,6 +12,10 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/public/api.json', function(req, res) {
+    res.sendFile(__dirname + '/public/api.json');
+});
+
 app.post('/index', urlencodedParser, function(req, res) {
     console.log(req.body);
     res.status(200).send(req.body);
