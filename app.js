@@ -30,4 +30,4 @@ app.post('/index', urlencodedParser, function(req, res) {
 });
 
 
-app.listen(3000, 'localhost');
+app.listen(process.env.PORT || 3000);
