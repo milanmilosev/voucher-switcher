@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <style>
+    .wrap{max-width:400px;margin:0 auto;height:100vh;display:flex;justify-content:center}.contact-form{align-self:center}#contact{padding:10px 0}.contact-text{margin:45px auto}.mail-message-area{width:100%;padding:0 15px}.mail-message{width:100%;background:rgba(255,255,255,.8)!important;-webkit-transition:all .7s;-moz-transition:all .7s;transition:all .7s;margin:0 auto;border-radius:0}.not-visible-message{height:0;opacity:0}.visible-message{height:auto;opacity:1;margin:25px auto 0}.form{width:100%;padding:15px;background:#f8f8f8;border:1px solid rgba(0,0,0,.075);margin-bottom:25px;color:#727272!important;font-size:13px;-webkit-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.form:focus,.form:hover{border:1px solid #8BC3A3}.form:focus{color:#fff;outline:0}.textarea{height:200px;max-height:200px;max-width:100%}.button{padding:8px 12px;background:#0A5175;display:block;width:120px;margin:10px 0 0;border-radius:3px;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s;text-align:center;font-size:.8em;box-shadow:0 1px 4px rgba(0,0,0,.1);-moz-box-shadow:0 1px 4px rgba(0,0,0,.1);-webkit-box-shadow:0 1px 4px rgba(0,0,0,.1)}.button:hover,.form-btn{background:#8BC3A3;color:#fff}.form-btn{width:180px;display:block;height:auto;padding:15px;margin-top:5px;border:none;border-radius:3px;outline:0;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s;box-shadow:0 1px 4px rgba(0,0,0,.1);-moz-box-shadow:0 1px 4px rgba(0,0,0,.1);-webkit-box-shadow:0 1px 4px rgba(0,0,0,.1)}.form-btn:hover{background:#111;color:#fff;border:none}.form-btn:active{opacity:.9}
+    </style>
+    <title>voucher switcher 🕹️</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="contact-form">
+            <form id="postData" class="col-xs-12">
+                <div class="col-xs-12 wow animated slideInLeft" data-wow-delay=".5s">
+                    <h1>voucher switcher 🕹️</h1>
+                    <input type="text" name="voucherNumber" id="voucherNumber" class="form" placeholder="voucher" />
+                    <input type="text" name="voucherValue" id="voucherValue" class="form" placeholder="value (€)" />
+                    <input type="checkbox" name="voucherDisabled" class="form-check-input" id="voucherDisabled">
+                    <label class="form-check-label" for="exampleCheck1" style="color: red">Disable vaucher</label>
+                </div>
+                <div class="relative fullwidth col-xs-12">
+                    <button type="submit" id="submit" name="submit" class="form-btn semibold">Submit</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+  let voucher = document.getElementById('voucherNumber');
+  let value = document.getElementById('voucherValue');
+  let voucherDisabled = document.getElementById('voucherDisabled');
+
+  // update status
+  const updateStatus = () => {
+      fetch('api/api.json').then(response => {
+      return response.json();
+      }).then(data => {
+        voucher.value = data.table[0].voucher;
+        value.value = data.table[0].value;
+        voucherDisabled.checked = !data.table[0].status;
+      }).catch(err => {
+          console.log(err);
+      });
+  }
+
+
+  // fetch post
+  document.getElementById('postData').addEventListener('submit', postData);
+  postData = (event) => {
+    event.preventDefault();
+    fetch('/admin', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({ status: !voucherDisabled.checked, voucher: voucher.value, value: value.value })
+    }).then((res) => res.json())
+    .then((data) =>  console.log(data))
+    .catch((err)=>console.log(err))
+  }
+  
+  updateStatus();
+</script>
+
+</html>
