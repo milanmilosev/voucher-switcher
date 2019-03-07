@@ -13,7 +13,7 @@ const myVars = {
     domain: 'dev-w6903s3t.eu.auth0.com',
     clientID: 'Rt19ColVsHJtS6rgc88tpLyXFqshf6UV',
     clientSecret: 'juYpnWztsSeNXhGuv5IHJipmxsQRKhH1Q7Hja6kamycKckEjtn87jXouL8IV0Ug3',
-    callbackURL: 'https://voucher-switcher.herokuapp.com/callback'
+    callbackURL: 'http://localhost:3000/callback'//'https://voucher-switcher.herokuapp.com/callback'
 }
 
 const strategy = new Auth0Strategy(
@@ -88,21 +88,15 @@ app.get('/logout', function(req, res) {
 
 app.get('/callback',
     passport.authenticate('auth0', {
-        failureRedirect: '/failure'
+        failureRedirect: '/failure.html'
     }),
     function(req,res) {
-        res.redirect('/dashboard');
+        res.sendFile(__dirname + '/views/dashboard.html');
     }
 );
 
-app.get('/dashboard', function(req, res, next) {
-    res.sendFile(__dirname + '/views/dashboard.html', {
-        user: req.user
-    });
-})
-
 app.get('/failure', function(req, res, next) {
-        res.send('failure');
+    res.sendFile(__dirname + '/views/failure.html');
 })
 
 app.get('/public/api.json', function(req, res) {
