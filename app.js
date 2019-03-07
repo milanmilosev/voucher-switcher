@@ -110,6 +110,10 @@ app.get('/public/api.json', function(req, res) {
     res.sendFile(__dirname + '/public/api.json');
 });
 
+app.get('/public/style.css', function(req, res) {
+    res.sendFile(__dirname + '/public/style.css');
+});
+
 app.post('/views/dashboard', urlencodedParser, function(req, res) {
     console.log(req.body);
     res.status(200).send(req.body);
