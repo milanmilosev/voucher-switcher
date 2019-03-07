@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 // Auth0 setup
-const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
@@ -139,44 +138,3 @@ app.post('/views/dashboard', urlencodedParser, function(req, res) {
 
 
 app.listen(process.env.PORT || 3000);
-
-
-
-
-// const express = require('express');
-// const fs = require('fs');
-// const app = express();
-// const bodyParser = require('body-parser')
-
-// var urlencodedParser = bodyParser.urlencoded({ extended: true });
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
-
-// app.get('/', function(req, res) {
-//     res.sendFile(__dirname + '/index.html');
-// });
-
-// app.get('/public/api.json', function(req, res) {
-//     res.sendFile(__dirname + '/public/api.json');
-// });
-
-// app.post('/index', urlencodedParser, function(req, res) {
-//     console.log(req.body);
-//     res.status(200).send(req.body);
-//     const data = {}
-//     data.table = 
-//     [{
-//         status: req.body.status,
-//         voucher: req.body.voucher,
-//         value: req.body.value
-//     }];
-//     fs.writeFile ("public/api.json", JSON.stringify(data), function(err) {
-//         if (err) throw err;
-//         console.log('api.json created');
-//         }
-//     );
-// });
-
-
-// app.listen(process.env.PORT || 3000);
