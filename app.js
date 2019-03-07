@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 // Auth0 setup
@@ -10,6 +11,7 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 
 // Allow CORS
+
 app.use(cors());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');
