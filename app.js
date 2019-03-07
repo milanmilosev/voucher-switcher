@@ -114,6 +114,12 @@ app.get('/public/style.css', function(req, res) {
     res.sendFile(__dirname + '/public/style.css');
 });
 
+app.get('/public/lp-hero.png', function(req, res) {
+    res.sendFile(__dirname + '/public/lp-hero.png');
+});
+
+app.use(express.static('public'));
+
 app.post('/views/dashboard', urlencodedParser, function(req, res) {
     console.log(req.body);
     res.status(200).send(req.body);
@@ -131,8 +137,6 @@ app.post('/views/dashboard', urlencodedParser, function(req, res) {
     );
 });
 
-
-app.use(express.static('public'))
 
 app.listen(process.env.PORT || 3000);
 
