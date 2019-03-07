@@ -9,6 +9,13 @@ const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 
+// Allow CORS
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
 const myVars = {
     domain: 'dev-w6903s3t.eu.auth0.com',
     clientID: 'Rt19ColVsHJtS6rgc88tpLyXFqshf6UV',
