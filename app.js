@@ -27,7 +27,7 @@ const myVars = {
     domain: 'dev-w6903s3t.eu.auth0.com',
     clientID: 'Rt19ColVsHJtS6rgc88tpLyXFqshf6UV',
     clientSecret: 'juYpnWztsSeNXhGuv5IHJipmxsQRKhH1Q7Hja6kamycKckEjtn87jXouL8IV0Ug3',
-    callbackURL: 'https://voucher-switcher.herokuapp.com/callback'
+    callbackURL: 'http://localhost:3000/callback'//'https://voucher-switcher.herokuapp.com/callback'
 }
 
 const strategy = new Auth0Strategy(
@@ -123,6 +123,13 @@ app.get('/public/style.css', function(req, res) {
 
 app.get('/public/lp-hero.png', function(req, res) {
     res.sendFile(__dirname + '/public/lp-hero.png');
+});
+app.get('/public/logo.svg', function(req, res) {
+    res.sendFile(__dirname + '/public/logo.svg');
+});
+
+app.get('/public/voucher-right.png', function(req, res) {
+    res.sendFile(__dirname + '/public/voucher-right.png');
 });
 
 app.use(express.static('public'));
