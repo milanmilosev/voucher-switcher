@@ -135,7 +135,7 @@ app.post('/views/dashboard', urlencodedParser, function(req, res) {
     [{
         status: req.body.status,
         voucher: req.body.voucher,
-        value: req.body.value
+        value: !isNaN(req.body.value) ? req.body.value : 'value is NaN'
     }];
     fs.writeFile ("public/api.json", JSON.stringify(data), function(err) {
         if (err) throw err;
