@@ -4,6 +4,8 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
+require('dotenv').config({ path: 'process.env' });
+
 
 // Auth0 setup
 const session = require('express-session');
@@ -11,7 +13,6 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 
 // Allow CORS
-
 app.use(cors());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');
@@ -24,10 +25,10 @@ app.use(function(req, res, next) {
 
 
 const myVars = {
-    domain: 'dev-w6903s3t.eu.auth0.com',
-    clientID: 'Rt19ColVsHJtS6rgc88tpLyXFqshf6UV',
-    clientSecret: 'juYpnWztsSeNXhGuv5IHJipmxsQRKhH1Q7Hja6kamycKckEjtn87jXouL8IV0Ug3',
-    callbackURL: 'https://voucher-switcher.herokuapp.com/callback'
+    domain: process.env.CLIENT_DOMAIN,
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL:  process.env.CLIENT_URI || 'http://localhost:3000/callback'
 }
 
 const strategy = new Auth0Strategy(
@@ -57,7 +58,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
     session({
-        secret: 'juYpnWztsSeNXhGuv5IHJipmxsQRKhH1Q7Hja6kamycKckEjtn87jXouL8IV0Ug3',
+        secret: myVars.clientSecret,
         resave: true,
         saveUninitialized: true
     })
@@ -75,8 +76,6 @@ app.use(function (req,res, next) {
 
     next();
 });
-
-
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/views/index.html');
