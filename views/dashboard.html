@@ -62,7 +62,7 @@
 
   // update status
   const updateStatus = () => {
-      fetch('../public/api.json').then(response => {
+      fetch('https://s3.eu-central-1.amazonaws.com/voucher-switcher/api.json').then(response => {
       return response.json();
       }).then(data => {
         voucher.value = data.table[0].voucher;

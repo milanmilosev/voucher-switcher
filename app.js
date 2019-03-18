@@ -4,6 +4,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
+const AWS = require('aws-sdk');
 require('dotenv').config({ path: 'process.env' });
 
 
@@ -11,6 +12,7 @@ require('dotenv').config({ path: 'process.env' });
 const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
+
 
 // Allow CORS
 app.use(cors());
@@ -21,6 +23,12 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
     next();
+});
+
+// AWS config
+AWS.config.update({ 
+    accessKeyId: process.env.AWS_ACCESSKEY, 
+    secretAccessKey: process.env.AWS_SECRET_ACCESSKEY
 });
 
 
@@ -143,11 +151,26 @@ app.post('/views/dashboard', urlencodedParser, function(req, res) {
         voucher: req.body.voucher,
         value: !isNaN(req.body.value) ? req.body.value : 'value is NaN'
     }];
-    fs.writeFile ("public/api.json", JSON.stringify(data), function(err) {
-        if (err) throw err;
-        console.log('api.json created');
-        }
-    );
+
+    const S3 = new AWS.S3();
+
+    const param = {
+        Bucket: 'voucher-switcher',
+        Key: 'api.json',
+        Body: JSON.stringify(data),
+        ContentType: 'application/json',
+        ACL:'public-read'
+    };
+
+    S3.putObject(param).promise()
+    .then(data => {
+      console.log('complete:PUT Object',data);
+       callback(null, data);
+    })
+    .catch(err => {
+      console.log('failure:PUT Object', err);
+       callback(err);
+    });
 });
 
 

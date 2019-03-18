@@ -56,3 +56,7 @@ typings/
 
 # dotenv environment variables file
 process.env
+
+#Others
+.DS_Store
+package-lock.json
