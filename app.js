@@ -34,7 +34,7 @@ const myVars = {
     domain: process.env.CLIENT_DOMAIN,
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL:  process.env.CLIENT_URI || 'http://localhost:3000/callback'
+    callbackURL:  process.env.REDIRECT_URI || 'http://localhost:3000/callback'
 }
 
 const strategy = new Auth0Strategy(
