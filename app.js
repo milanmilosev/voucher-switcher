@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
-const fs = require('fs');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
 const AWS = require('aws-sdk');
 require('dotenv').config({ path: 'process.env' });
 
+//Test process var
+console.log(process.env.CLIENT_DOMAIN);
 
 // Auth0 setup
 const session = require('express-session');
