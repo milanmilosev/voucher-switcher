@@ -17,9 +17,7 @@
     "express-session": "^1.15.6",
     "googleapis": "^37.2.0",
     "passport": "^0.4.0",
-    "passport-auth0": "^1.1.0"
-  },
-  "devDependencies": {
+    "passport-auth0": "^1.1.0",
     "aws-sdk": "^2.422.0"
   }
 }
