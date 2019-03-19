@@ -4,8 +4,8 @@
   "description": "Turn on/off user voucher",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon --exec babel-node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Milan Milosev",
   "license": "ISC",
@@ -19,5 +19,11 @@
     "passport": "^0.4.0",
     "passport-auth0": "^1.1.0",
     "aws-sdk": "^2.422.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
+    "nodemon": "^1.18.10"
   }
 }

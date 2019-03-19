@@ -1,4 +1,5 @@
 #Others
 .DS_Store
 package-lock.json
+process-prod.env
 node_modules/
