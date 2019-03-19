@@ -1,15 +1,13 @@
-const express = require('express');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import passport from 'passport';
+import Auth0Strategy from 'passport-auth0';
+import AWS from 'aws-sdk';
 const router = express.Router();
-const path = require('path');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const passport = require('passport');
-const Auth0Strategy = require('passport-auth0');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
-const AWS = require('aws-sdk');
-
 require('dotenv').config({ path: 'process.env' })
-
 
 // AWS config
 AWS.config.update({ 
@@ -21,7 +19,7 @@ const myVars = {
     domain: process.env.CLIENT_DOMAIN,
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: process.env.REDIRECT_URI || 'http://localhost:3000/callback'
+    callbackURL: 'http://localhost:3000/callback'
 }
 
 const strategy = new Auth0Strategy({

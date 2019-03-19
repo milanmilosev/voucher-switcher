@@ -1,9 +1,7 @@
 import express from "express";
-const app = express();
 import cors from "cors";
+const app = express();
 require('dotenv').config({ path: 'process.env' })
-
-require("dotenv").config({ path: "process.env" });
 
 import authRouter from "./routes/auth";
 import indexRouter from "./routes/index";

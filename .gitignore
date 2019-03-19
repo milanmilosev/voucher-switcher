@@ -1,5 +1,7 @@
 #Others
 .DS_Store
+.idea/
+lib
 package-lock.json
 process-prod.env
 node_modules/
